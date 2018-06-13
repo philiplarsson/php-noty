@@ -2,12 +2,12 @@
 
 namespace philiplarsson\Notes\Commands;
 
+use philiplarsson\Notes\Command;
 use philiplarsson\Notes\Exceptions\FileNotFoundException;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,7 +18,6 @@ class CompileCommand extends Command
 
     public function __construct()
     {
-
         parent::__construct();
     }
 
@@ -33,17 +32,27 @@ class CompileCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $inputFilename = $input->getArgument('name');
+
+        $this->assertFileExists($inputFilename, $output);
         $this->validateOptions($input, $output);
 
-        $inputFilename = $input->getArgument('name');
-        $fileInfo = pathInfo($inputFilename);
-        $outputFilename = $fileInfo['filename'] . "." . $input->getOption('format');
+        $outputFilename = sprintf("%s.%s",
+                    $this->getFileRoot($inputFilename),
+                    $input->getOption('format')
+                );
 
         $this->checkIfOutputFileExists($outputFilename, $input, $output);
 
         $pandocCommand = $this->getPandocCommand($inputFilename, $outputFilename);
 
-        $process = new Process($pandocCommand);
+        $this->runCommand($pandocCommand);
+        $output->writeln('<comment>Note compiled!</comment>');
+    }
+
+    private function runCommand(string $command)
+    {
+        $process = new Process($command);
         $process->run();
 
         if (!$process->isSuccessful()) {
@@ -51,7 +60,14 @@ class CompileCommand extends Command
         }
 
         echo $process->getOutput();
-        $output->writeln('<comment>Note compiled!</comment>');
+    }
+
+    private function assertFileExists($filename, OutputInterface $output)
+    {
+        if (!file_exists($filename)) {
+            $output->writeln("<error>${filename} does not exist!</error>");
+            exit(1);
+        }
     }
 
     private function getPandocCommand(string $inputFilename, string $outputFilename): string
