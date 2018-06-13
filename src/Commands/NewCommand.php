@@ -25,8 +25,8 @@ class NewCommand extends Command
     public function configure()
     {
         $this->setName('new')
-             ->setDescription('Create a new note.')
-             ->addArgument('name', InputArgument::REQUIRED, "Name of the note. ")
+             ->setDescription('Create a new note')
+             ->addArgument('name', InputArgument::REQUIRED, "Name of the note")
              ->addOption('title', null, InputOption::VALUE_OPTIONAL, 'Title of the note', 'New note');
     }
 

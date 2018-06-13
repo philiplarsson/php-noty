@@ -4,12 +4,14 @@
 require __DIR__.'/vendor/autoload.php';
 
 use philiplarsson\Notes\Commands\NewCommand;
+use philiplarsson\Notes\Commands\CompileCommand;
 
 use Symfony\Component\Console\Application;
 
 $app = new Application('Note utility app', "1.0");
 
 $app->add(new NewCommand());
+$app->add(new CompileCommand());
 
 $app->run();
 
