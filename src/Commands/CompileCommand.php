@@ -6,8 +6,6 @@ use philiplarsson\Noty\Command;
 use philiplarsson\Noty\Exceptions\FileNotFoundException;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,7 +33,9 @@ class CompileCommand extends Command
         $inputFilename = $input->getArgument('name');
 
         $this->assertFileExists($inputFilename, $output);
-        $this->validateOptions($input, $output);
+        $this->validateOptions($input, $output, [
+            'format' => ['pdf', 'html']
+        ]);
 
         $outputFilename = sprintf("%s.%s",
                     $this->getFileRoot($inputFilename),
@@ -50,35 +50,6 @@ class CompileCommand extends Command
         $output->writeln('<comment>Note compiled!</comment>');
     }
 
-    private function runCommand(string $command)
-    {
-        $process = new Process($command);
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        echo $process->getOutput();
-    }
-
-    private function assertFileExists($filename, OutputInterface $output)
-    {
-        if (!file_exists($filename)) {
-            $output->writeln("<error>${filename} does not exist!</error>");
-            exit(1);
-        }
-    }
-
-    private function getPandocCommand(string $inputFilename, string $outputFilename): string
-    {
-        $cmd = "pandoc ${inputFilename} -o ${outputFilename}";
-        if ($this->endsWith('html', $outputFilename)) {
-            $cmd .= " -s --css " . __DIR__  . '/../../css/pandoc.css';
-        }
-
-        return $cmd;
-    }
 
     private function checkIfOutputFileExists(string $outputFile, InputInterface $input, OutputInterface $output)
     {
@@ -92,13 +63,6 @@ class CompileCommand extends Command
                 $output->writeln("<info>Exiting...</info>");
                 exit(1);
             }
-        }
-    }
-    private function validateOptions(InputInterface $input, OutputInterface $output)
-    {
-        if (!in_array($input->getOption('format'), ['pdf', 'html'])) {
-            $output->writeln("<error>Unsupported output format</error>");
-            exit(1);
         }
     }
 }
