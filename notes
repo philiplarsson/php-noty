@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use philiplarsson\Notes\Commands\NewCommand;
+
+use Symfony\Component\Console\Application;
+
+$app = new Application('Note utility app', "1.0");
+
+$app->add(new NewCommand());
+
+$app->run();
+
