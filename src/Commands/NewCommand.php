@@ -1,9 +1,9 @@
 <?php
 
-namespace philiplarsson\Notes\Commands;
+namespace philiplarsson\Noty\Commands;
 
-use philiplarsson\Notes\Command;
-use philiplarsson\Notes\Exceptions\FileNotFoundException;
+use philiplarsson\Noty\Command;
+use philiplarsson\Noty\Exceptions\FileNotFoundException;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

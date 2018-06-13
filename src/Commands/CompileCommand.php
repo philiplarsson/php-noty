@@ -1,9 +1,9 @@
 <?php
 
-namespace philiplarsson\Notes\Commands;
+namespace philiplarsson\Noty\Commands;
 
-use philiplarsson\Notes\Command;
-use philiplarsson\Notes\Exceptions\FileNotFoundException;
+use philiplarsson\Noty\Command;
+use philiplarsson\Noty\Exceptions\FileNotFoundException;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
@@ -72,7 +72,12 @@ class CompileCommand extends Command
 
     private function getPandocCommand(string $inputFilename, string $outputFilename): string
     {
-        return "pandoc ${inputFilename} -o ${outputFilename}";
+        $cmd = "pandoc ${inputFilename} -o ${outputFilename}";
+        if ($this->endsWith('html', $outputFilename)) {
+            $cmd .= " -s --css " . __DIR__  . '/../../css/pandoc.css';
+        }
+
+        return $cmd;
     }
 
     private function checkIfOutputFileExists(string $outputFile, InputInterface $input, OutputInterface $output)

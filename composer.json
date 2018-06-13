@@ -1,7 +1,7 @@
 {
-    "name": "notes",
+    "name": "noty",
     "description": "Note utility app",
-    "keywords": ["notes", "markdown"],
+    "keywords": ["notes", "markdown", "noty"],
     "license": "MIT",
     "require": {
         "symfony/console": "^4.1",
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "philiplarsson\\Notes\\": "src/"
+            "philiplarsson\\Noty\\": "src/"
         }
     }
 }

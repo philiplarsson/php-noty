@@ -1,6 +1,6 @@
 <?php
 
-namespace philiplarsson\Notes\Exceptions;
+namespace philiplarsson\Noty\Exceptions;
 
 class FileNotFoundException extends \Exception
 {

@@ -3,8 +3,8 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use philiplarsson\Notes\Commands\NewCommand;
-use philiplarsson\Notes\Commands\CompileCommand;
+use philiplarsson\Noty\Commands\NewCommand;
+use philiplarsson\Noty\Commands\CompileCommand;
 
 use Symfony\Component\Console\Application;
 
