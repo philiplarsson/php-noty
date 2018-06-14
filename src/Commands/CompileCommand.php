@@ -14,11 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CompileCommand extends Command
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function configure()
     {
         $this->setName('compile')
