@@ -40,5 +40,4 @@ To have noty available *everywhere*, you can create an alias instead of adding i
 
 ## Future Areas of Improvement
 - [] Scan folder for multiple markdown files and create html index page.
-- [] See if css file exists. If not, download from github repo.
 
