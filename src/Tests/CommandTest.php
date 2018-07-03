@@ -50,20 +50,4 @@ class CommandTest extends TestCase
             ['pdf', 'foo/bar/baz/my.fancy.file.pdf', true]
         ];
     }
-
-    /**
-     * @dataProvider getPandocCommandProvider
-     */
-    public function testGetPandocCommand($inputFilename, $outputFilename, $expected)
-    {
-        $actualOutput = $this->command->getPandocCommand($inputFilename, $outputFilename);
-        $this->assertEquals($expected, $actualOutput);
-    }
-
-    public function getPandocCommandProvider()
-    {
-        return [
-            ['myfile.md', 'myfile.pdf', 'pandoc myfile.md -o myfile.pdf']
-        ];
-    }
 }

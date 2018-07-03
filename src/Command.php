@@ -67,6 +67,9 @@ class Command extends SymfonyCommand
         if ($this->endsWith('html', $outputFilename)) {
             //TODO: check if css file exists
             $cmd .= " -s --css " . __DIR__  . '/../css/pandoc.css';
+        } else if ($this->endsWith('pdf', $outputFilename)) {
+            // TODO: check if eisvogel tex exists
+            $cmd .= " --template " . __DIR__ . "/../tex-templates/eisvogel.tex --listings";
         }
 
         return $cmd;
