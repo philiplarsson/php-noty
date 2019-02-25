@@ -326,3 +326,9 @@ table td {
     page-break-after: avoid;
   }
 }
+
+.sourceCode {
+  border: 1px solid #99999980;
+	padding: 20px;
+	font-size: 0.9em;
+}
