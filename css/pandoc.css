@@ -327,8 +327,12 @@ table td {
   }
 }
 
-.sourceCode {
+pre.sourceCode {
   border: 1px solid #99999980;
-	padding: 20px;
-	font-size: 0.9em;
+  padding: 15px;
+  font-size: 0.9em;
+}
+
+h1 {
+  border-bottom: 1px solid #000c;
 }
